@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Carrossel com JavaScript</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background-color: #f0f0f0;
+      font-family: sans-serif;
+    }
+
+    .carousel {
+      width: 80%;
+      max-width: 600px;
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+    }
+
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-images img {
+      width: 100%;
+    }
+
+    /* Botões de navegação */
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      width: 40px;
+      height: 40px;
+      background-color: rgba(0, 0, 0, 0.5);
+      color: #fff;
+      font-size: 24px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      cursor: pointer;
+      transform: translateY(-50%);
+      z-index: 1;
+    }
+
+    .prev { left: 10px; }
+    .next { right: 10px; }
+  </style>
+</head>
+<body>
+  <div class="carousel">
+    <!-- Imagens do carrossel -->
+    <div class="carousel-images">
+      <img src="assets/1.jpg" alt="Imagem 1">
+      <img src="assets/2.jpg" alt="Imagem 2">
+      <img src="assets/3.jpg" alt="Imagem 3">
+      <img src="assets/4.jpg" alt="Imagem 4">
+      <img src="assets/5.jpg" alt="Imagem 5">
+    </div>
+
+    <!-- Botões para navegação -->
+    <div class="prev" onclick="showPreviousImage()">&lt;</div>
+    <div class="next" onclick="showNextImage()">&gt;</div>
+  </div>
+
+  <script>
+    // Variáveis do carrossel
+    const images = document.querySelectorAll(".carousel-images img");
+    let currentIndex = 0;
+
+    // Função para mostrar a próxima imagem
+    function showNextImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      updateCarousel();
+    }
+
+    // Função para mostrar a imagem anterior
+    function showPreviousImage() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      updateCarousel();
+    }
+
+    // Função para atualizar a posição do carrossel
+    function updateCarousel() {
+      const offset = -currentIndex * 100; // Calcula o offset da imagem
+      document.querySelector(".carousel-images").style.transform = `translateX(${offset}%)`;
+    }
+  </script>
+</body>
+</html>
